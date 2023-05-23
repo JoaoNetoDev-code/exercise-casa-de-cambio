@@ -1,14 +1,9 @@
 import './style.css';
 
-const dados = fetch('https://api.exchangerate.host/latest')
-  .then((Response) => Response.json())
-  .then((data) => {
-    return data;
-  });
-console.log(dados);
-
-const campoDeText = document.querySelector('#campoDeText');
 const buttonActive = document.querySelector('button');
+const campoDeText = document.querySelector('#campoDeText');
+const textoApresenta = document.querySelector('h2');
+
 const creatDivs = (qnt) => {
   const valores = document.querySelector('#valoresConvertidos');
   for (let index = 0; index < qnt; index += 1) {
@@ -17,10 +12,24 @@ const creatDivs = (qnt) => {
     valores.appendChild(divs);
   }
 };
+
+const dados = (urls) => {
+  return fetch(urls)
+    .then((Response) => Response.json())
+    .then((data) => {
+      /// magica ak.
+      console.log(data);
+      // btnFunction(data);
+    });
+};
+
+// const btnFunction = () => {
+
+// };
 buttonActive.addEventListener('click', () => {
-  const quantity = Object.values(dados.rates).length;
+  const quantity = Object.values(data.rates).length;
   creatDivs(quantity);
   const moeda = campoDeText.value;
   const url = `https://api.exchangerate.host/latest?base=${moeda}`;
-  console.log(url);
+  dados(url);
 });
